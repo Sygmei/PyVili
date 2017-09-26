@@ -54,6 +54,7 @@ class DataNode(Node):
                 self.data = float(data)
             elif self.dataType == DataType.String:
                 self.data = data[1:-1]
+                print("AFFECT = =================> ", data)
             elif self.dataType == DataType.Bool:
                 self.data = True if data == "True" else False
             else:

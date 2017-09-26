@@ -3,7 +3,7 @@ from io import TextIOWrapper
 from PyVili.ContainerNode import ContainerNode
 from PyVili.DataNode import DataNode
 from PyVili.Node import Node
-from PyVili.Types import getValueType
+from PyVili.Types import getValueType, NodeType
 
 
 class ArrayNode(ContainerNode):
@@ -11,6 +11,7 @@ class ArrayNode(ContainerNode):
         super()._init(parent, id)
         self.children = []
         self.iterIndex = 0
+        self.type = NodeType.ArrayNode
 
     def reorder(self, index: int):
         for i in range(index, len(self.children)):

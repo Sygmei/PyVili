@@ -25,6 +25,7 @@ class ComplexNode(ContainerNode):
     def __init__(self, parent: ContainerNode, id: str = ""):
         super()._init(parent, id)
         self.children = OrderedDict()
+        self.type = NodeType.ComplexNode
 
     def extractElement(self, element: Node) -> Node:
         for index, elem in enumerate(self.children):
@@ -42,21 +43,24 @@ class ComplexNode(ContainerNode):
     def getDataNode(self, key: str) -> DataNode:
         if self.get(key).getType() == NodeType.DataNode:
             return self.children[key]
-        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(), "type": self.get(key).getType()})
+        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(), 
+        "type": self.get(key).getType(), "child": key})
 
     def getComplexNode(self, key: str) -> 'ComplexNode':
         if self.get(key).getType() == NodeType.ComplexNode:
             return self.children[key]
-        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(), "type": self.get(key).getType()})
+        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(), 
+        "type": self.get(key).getType(), "child": key})
 
     def getArrayNode(self, key: str) -> 'ArrayNode':
         if self.get(key).getType() == NodeType.ArrayNode:
             return self.children[key]
-        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(), "type": self.get(key).getType()})
+        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(), 
+        "type": self.get(key).getType(), "child": key})
 
     def at(self, *pathParts: str):
         if len(pathParts) >= 2:
-            return self.getPath(pathParts[0]).at(*pathParts[1::])
+            return self.get(pathParts[0]).at(*pathParts[1::])
         elif len(pathParts) == 1:
             return self.get(pathParts[0])
         else:
@@ -73,10 +77,12 @@ class ComplexNode(ContainerNode):
             return getToPath
         raise ComplexNodeEmptyPathException({"path": self.getNodePath()})
 
-    def getAll(self, nodeType: NodeType):
+    def getAll(self, nodeType: NodeType = NodeType.Node):
         elems = []
-        for elem in self.children:
-            if elem.getType() == nodeType:
+        for elem in self.children.values():
+            if elem.getType() == nodeType or nodeType == NodeType.Node:
+                elems.append(elem)
+            elif elem.getType in [NodeType.ComplexNode, NodeType.ArrayNode] and nodeType == NodeType.ContainerNode:
                 elems.append(elem)
         return elems
 

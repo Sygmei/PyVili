@@ -53,7 +53,7 @@ class ComplexNodeNoPathPartsError(ViliException):
 
 class ComplexNodeIncorrectChildTypeException(ViliException):
     def __init__(self, dct):
-        super().__init__("Child of ComplexNode '%path%' has type %type%", dct)
+        super().__init__("Child '%child%' of ComplexNode '%path%' has type %type%", dct)
 
 class ComplexNodeEmptyPathException(ViliException):
     def __init__(self, dct):
