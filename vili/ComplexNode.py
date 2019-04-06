@@ -21,6 +21,7 @@ def convertPath(path: str) -> list:
     else:
         return []
 
+
 class ComplexNode(ContainerNode):
     def __init__(self, parent: ContainerNode, id: str = ""):
         super()._init(parent, id)
@@ -43,20 +44,20 @@ class ComplexNode(ContainerNode):
     def getDataNode(self, key: str) -> DataNode:
         if self.get(key).getType() == NodeType.DataNode:
             return self.children[key]
-        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(), 
-        "type": self.get(key).getType(), "child": key})
+        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(),
+                                                      "type": self.get(key).getType(), "child": key})
 
     def getComplexNode(self, key: str) -> 'ComplexNode':
         if self.get(key).getType() == NodeType.ComplexNode:
             return self.children[key]
-        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(), 
-        "type": self.get(key).getType(), "child": key})
+        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(),
+                                                      "type": self.get(key).getType(), "child": key})
 
     def getArrayNode(self, key: str) -> 'ArrayNode':
         if self.get(key).getType() == NodeType.ArrayNode:
             return self.children[key]
-        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(), 
-        "type": self.get(key).getType(), "child": key})
+        raise ComplexNodeIncorrectChildTypeException({"path": self.getNodePath(),
+                                                      "type": self.get(key).getType(), "child": key})
 
     def at(self, *pathParts: str):
         if len(pathParts) >= 2:

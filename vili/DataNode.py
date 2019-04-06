@@ -10,7 +10,7 @@ from PyVili.ViliException import (
 
 
 class DataNode(Node):
-    def __init__(self, parent = None, id = None, dataType = None):
+    def __init__(self, parent=None, id=None, dataType=None):
         if dataType is None:
             dataType = id
             id = parent
@@ -25,7 +25,8 @@ class DataNode(Node):
                     validType = True
                     break
             if not validType:
-                raise DataNodeInvalidDataTypeException({"path": self.getNodePath(), "type": dataType})
+                raise DataNodeInvalidDataTypeException(
+                    {"path": self.getNodePath(), "type": dataType})
         else:
             self.dataType = dataType
             self.data = None
@@ -36,7 +37,7 @@ class DataNode(Node):
         if isinstance(self.data, str) and self.dataType == DataType.String:
             return True
         if (isinstance(self.data, int) or isinstance(self.data, float)) and (
-                        self.dataType == DataType.Int or self.dataType == DataType.Float):
+                self.dataType == DataType.Int or self.dataType == DataType.Float):
             return True
         if isinstance(self.data, bool) and self.dataType == DataType.Bool:
             return True
@@ -58,10 +59,12 @@ class DataNode(Node):
             elif self.dataType == DataType.Bool:
                 self.data = True if data == "True" else False
             else:
-                raise DataNodeWrongAutosetException({"path": self.getNodePath(), "data": data})
+                raise DataNodeWrongAutosetException(
+                    {"path": self.getNodePath(), "data": data})
             self.checkType()
         else:
-            raise DataNodeWrongAutosetException({"path": self.getNodePath(), "data": data})
+            raise DataNodeWrongAutosetException(
+                {"path": self.getNodePath(), "data": data})
 
     def dumpData(self):
         print(self.id, self.data, self.dataType)
@@ -72,7 +75,8 @@ class DataNode(Node):
         elif self.dataType == DataType.Bool:
             return "True" if self.data else "False"
         else:
-            raise DataNodeWrongDataTypeException({"path": self.getNodePath(), "datatype": self.dataType})
+            raise DataNodeWrongDataTypeException(
+                {"path": self.getNodePath(), "datatype": self.dataType})
 
     def getDataType(self):
         return self.dataType
@@ -85,5 +89,6 @@ class DataNode(Node):
         if self.visible:
             for i in range(self.getDepth()):
                 writeFile.write(ViliParser.spacing * " ")
-            writeFile.write((self.id + ":" + self.dumpData()) if self.id[0] != "#" else self.dumpData())
+            writeFile.write((self.id + ":" + self.dumpData())
+                            if self.id[0] != "#" else self.dumpData())
             writeFile.write("\n")

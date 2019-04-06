@@ -40,7 +40,8 @@ class ArrayNode(ContainerNode):
             return self.children[self.iterIndex - 1]
 
     def push(self, value: any):
-        newNode = DataNode(self, "#" + str(len(self.children)), getValueType(value))
+        newNode = DataNode(
+            self, "#" + str(len(self.children)), getValueType(value))
         newNode.set(value)
         self.children.append(newNode)
 

@@ -9,4 +9,4 @@ from PyVili.ViliException import *
 from PyVili.ViliParser import *
 
 __all__ = ["ArrayNode", "ComplexNode", "ContainerNode", "DataNode", "Node", "Types", "Utils", "ViliException", "ViliParser"]
-__version__ = "1.0.0"
+__version__ = "1.1.0"

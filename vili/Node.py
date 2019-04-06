@@ -70,11 +70,13 @@ class Node:
         parentChain = []
         currentParent = self.parent
         while currentParent is not None:
-            parentAnnotation = "" if currentParent.getAnnotation() == "" else "<" + currentParent.getAnnotation() + ">"
+            parentAnnotation = "" if currentParent.getAnnotation() == "" else "<" + \
+                currentParent.getAnnotation() + ">"
             parentChain.append(currentParent.getId() + parentAnnotation)
             currentParent = currentParent.getParent()
         parentChain = parentChain[::-1]
-        parentChain.append(self.id + "" if self.annotation == "" else "<" + self.annotation + ">")
+        parentChain.append(self.id + "" if self.annotation
+                           == "" else "<" + self.annotation + ">")
         return "/".join(parentChain)
 
     def getRawNodePath(self):

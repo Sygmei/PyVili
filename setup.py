@@ -1,36 +1,53 @@
-import os
-import sys
+"""Manipulate vili files in Python
+"""
 
 from setuptools import setup, find_packages
+from os import path
 
-here = os.path.abspath(os.path.dirname(__file__))
-if here not in sys.path:
-    sys.path.insert(0, here)
+from vili import __version__
 
-import PyVili
+here = path.abspath(path.dirname(__file__))
 
-with open(os.path.join(here, 'README.rst')) as fp:
-    readme = fp.read().strip()
-
-readme_lines = readme.splitlines()
+# Get the long description from the README file
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
-    name='PyVili',
-    packages=find_packages(),
-    package_data={'': ['../README.rst']},
-    install_requires=[
-    ],
-    version=PyVili.__version__,
-    author='Sygmei',
-    author_email='sygmei@obengine.io',
-    description=readme_lines[3],
+    name='vili',
+    version=__version__,
+    description='PyVili is a Python API to manipulate Vili Data files',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/Sygmei/PyVili',
-    license='MIT',
+    author='Sygmei',
+    author_email='sygmei@sygmei.io',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
+        'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
+        'Topic :: Software Development :: Libraries :: Python Modules',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
+    keywords='vili data language config',
+    packages=find_packages(include=['vili']),
+    python_requires='>=3.6, <4',
+    install_requires=[],
+    extras_require={
+        'test': [
+            'coverage',
+            'tox',
+            'pytest',
+            'flake8'
+        ],
+    },
+    entry_points={
+        'console_scripts': [],
+    },
+    project_urls={
+        'Bug Reports': 'https://github.com/Sygmei/PyVili/issues',
+        'Source': 'https://github.com/Sygmei/PyVili',
+    },
 )

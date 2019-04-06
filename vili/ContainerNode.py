@@ -14,7 +14,8 @@ class ContainerNode(Node):
         return element
 
     def extractElement(self, element: Node):
-        raise NotImplementedError("ContainerNode::extractElement is abstract method")
+        raise NotImplementedError(
+            "ContainerNode::extractElement is abstract method")
 
     def copy(self, newParent: 'ContainerNode', newId: str = ""):
         raise NotImplementedError("ContainerNode::copy is abstract method")
